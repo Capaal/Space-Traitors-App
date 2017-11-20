@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/computer_black"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="1dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="clickShipChoice">
+
+            <TextView
+                android:id="@+id/shipName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/neon_green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="BattleShip" />
+
+            <TextView
+                android:id="@+id/shipShields"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textColor="@color/neon_green"
+                app:layout_constraintStart_toStartOf="@+id/shipLifeSupport"
+                app:layout_constraintTop_toBottomOf="@+id/shipLifeSupport"
+                tools:text="Shields: 6" />
+
+            <TextView
+                android:id="@+id/shipCargo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textColor="@color/neon_green"
+                app:layout_constraintEnd_toStartOf="@+id/shipNavigation"
+                app:layout_constraintStart_toEndOf="@+id/shipNavigation"
+                app:layout_constraintTop_toBottomOf="@+id/shipNavigation"
+                tools:text="Cargo: 6" />
+
+            <TextView
+                android:id="@+id/shipUpgrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textColor="@color/neon_green"
+                app:layout_constraintEnd_toEndOf="@+id/shipWeapons"
+                app:layout_constraintTop_toBottomOf="@+id/shipWeapons"
+                tools:text="Upgrade: 6" />
+
+            <TextView
+                android:id="@+id/shipLifeSupport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textColor="@color/neon_green"
+                app:layout_constraintEnd_toStartOf="@+id/shipNavigation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shipNavigation"
+                tools:text="Life Support: 6" />
+
+            <TextView
+                android:id="@+id/shipNavigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textColor="@color/neon_green"
+                app:layout_constraintEnd_toStartOf="@+id/shipName"
+                app:layout_constraintStart_toEndOf="@+id/shipName"
+                app:layout_constraintTop_toBottomOf="@+id/shipName"
+                tools:text="Navigation: 6" />
+
+            <TextView
+                android:id="@+id/shipWeapons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textColor="@color/neon_green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/shipNavigation"
+                app:layout_constraintTop_toTopOf="@+id/shipNavigation"
+                tools:text="Weapons: 6" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ShipData"
+            type="com.wordpress.a3dtwentyblog.spacetraitors.ShipData" />
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:drawable/checkbox_off_background">
+
+            <TextView
+                android:id="@+id/navCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="end"
+                android:text="@{`` + ShipData.currentNavigation}"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/navMax"
+                app:layout_constraintEnd_toStartOf="@+id/navMax"
+                app:layout_constraintTop_toTopOf="@+id/navMax"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/navMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:text="@{`` + ShipData.maxNavigation}"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/navTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/navigation_short_name"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/navMax"
+                app:layout_constraintStart_toStartOf="@+id/navMax"
+                tools:text="NAV" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:drawable/checkbox_off_background">
+
+            <TextView
+                android:id="@+id/weaCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="end"
+                android:text="@{`` + ShipData.currentWeapons}"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/weaMax"
+                app:layout_constraintEnd_toStartOf="@+id/weaMax"
+                app:layout_constraintTop_toTopOf="@+id/weaMax"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/weaMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:text="@{`` + ShipData.maxWeapons}"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/weaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/weapons_short_name"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/weaMax"
+                app:layout_constraintStart_toStartOf="@+id/weaMax"
+                tools:text="WEA" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:drawable/checkbox_off_background">
+
+            <TextView
+                android:id="@+id/upgCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="end"
+                android:text="@{`` + ShipData.currentUpgrade}"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/upgMax"
+                app:layout_constraintEnd_toStartOf="@+id/upgMax"
+                app:layout_constraintTop_toTopOf="@+id/upgMax"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/upgMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:text="@{`` + ShipData.maxUpgrade}"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/upgTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/upgrade_short_name"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/upgMax"
+                app:layout_constraintStart_toStartOf="@+id/upgMax"
+                tools:text="UPG" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:drawable/checkbox_off_background">
+
+            <TextView
+                android:id="@+id/crgCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="end"
+                android:text="@{`` + ShipData.currentCargo}"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/crgMax"
+                app:layout_constraintEnd_toStartOf="@+id/crgMax"
+                app:layout_constraintTop_toTopOf="@+id/crgMax"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/crgMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:text="@{`` + ShipData.maxCargo}"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/crgTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/cargo_short_name"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/crgMax"
+                app:layout_constraintStart_toStartOf="@+id/crgMax"
+                tools:text="CRG" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:drawable/checkbox_off_background">
+
+            <TextView
+                android:id="@+id/shieldCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="end"
+                android:text="@{`` + ShipData.currentShields}"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/shieldMax"
+                app:layout_constraintEnd_toStartOf="@+id/shieldMax"
+                app:layout_constraintTop_toTopOf="@+id/shieldMax"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/shieldMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:text="@{`` + ShipData.maxShields}"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/shieldTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/shields_short_name"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/shieldMax"
+                app:layout_constraintStart_toStartOf="@+id/shieldMax"
+                tools:text="SHD" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:drawable/checkbox_off_background">
+
+            <TextView
+                android:id="@+id/lifeSupportCurrent"
+                t_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="end"
+                android:text="@={`` + ShipData.currentLifeSupport}"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lifeSupportMax"
+                app:layout_constraintEnd_toStartOf="@+id/lifeSupportMax"
+                app:layout_constraintTop_toTopOf="@+id/lifeSupportMax"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/lifeSupportMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="end"
+                android:text="@={`` + ShipData.maxLifeSupport}"
+                android:textAlignment="textEnd"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/lifeSupportTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/life_support_short_name"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/lifeSupportMax"
+                app:layout_constraintStart_toStartOf="@+id/lifeSupportMax"
+                tools:text="LF" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

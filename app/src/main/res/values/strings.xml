@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Space Traitors</string>
+    <string name="action_settings">Settings</string>
+
+    <!--
+          Used for Preferences
+    -->
+    <string name="pref_lock_max_stats_label">Lock Max Stats</string>
+    <string name="pref_lock_max_stats_key" translatable="false">lock_max</string>
+
+    <string name="pref_auto_repair_label">Auto Repair</string>
+    <string name="pref_auto_repair_key" translatable="false">auto_repair</string>
+
+    <string name="pref_auto_kill_crew_label">Auto Kill Crew</string>
+    <string name="pref_auto_kill_crew_key" translatable="false">auto_kill_crew</string>
+
+    <string name="pref_show_true">Aid Turned On</string>
+    <string name="pref_show_false">Aid Deactivated</string>
+
+
+    <!--Ship Max Stats-->
+    <string-array name="battleship_max_stats">
+        <item>3</item>
+        <item>5</item>
+        <item>4</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string name="navigation_long_name">Navigation</string>
+    <string name="navigation_short_name">NAV</string>
+
+    <string name="weapons_long_name">Weapons</string>
+    <string name="weapons_short_name">WEA</string>
+
+    <string name="upgrade_long_name">Upgrade</string>
+    <string name="upgrade_short_name">UPG</string>
+
+    <string name="cargo_long_name">Cargo</string>
+    <string name="cargo_short_name">CRG</string>
+
+    <string name="life_support_long_name">Life Support</string>
+    <string name="life_support_short_name">LF</string>
+
+    <string name="shields_long_name">Shields</string>
+    <string name="shields_short_name">SHD</string>
+
+    <!-- Fragment Ship Activity -->
+    <string name="repaired_phrase">Repaired: </string>
+    <string name="damaged_phrase">Damaged: </string>
+
+</resources>

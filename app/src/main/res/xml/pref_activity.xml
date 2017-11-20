@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_lock_max_stats_key"
+        android:summaryOff="@string/pref_show_false"
+        android:summaryOn="@string/pref_show_true"
+        android:title="@string/pref_lock_max_stats_label" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_auto_repair_key"
+        android:summaryOff="@string/pref_show_false"
+        android:summaryOn="@string/pref_show_true"
+        android:title="@string/pref_auto_repair_label" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_auto_kill_crew_key"
+        android:summaryOff="@string/pref_show_false"
+        android:summaryOn="@string/pref_show_true"
+        android:title="@string/pref_auto_kill_crew_label" />
+</PreferenceScreen>

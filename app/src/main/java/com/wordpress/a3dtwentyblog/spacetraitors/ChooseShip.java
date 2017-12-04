@@ -1,6 +1,5 @@
 package com.wordpress.a3dtwentyblog.spacetraitors;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,7 +36,7 @@ public class ChooseShip extends AppCompatActivity {
     public void clickShipChoice(View view) {
  //       Intent intent = new Intent(this, ShipActivity.class);
         Intent intent = new Intent(this, PagerCollectionActivity.class);
-        intent.putExtra(Intent.EXTRA_TEXT, ((TextView)view.findViewById(R.id.shipName)).getText());
+        intent.putExtra(Intent.EXTRA_TEXT, ((TextView)view.findViewById(R.id.main_ship_name)).getText());
         startActivity(intent);
     }
 }

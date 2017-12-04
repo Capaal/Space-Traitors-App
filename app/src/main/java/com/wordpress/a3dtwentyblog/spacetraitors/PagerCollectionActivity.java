@@ -2,6 +2,7 @@ package com.wordpress.a3dtwentyblog.spacetraitors;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -36,6 +37,27 @@ public class PagerCollectionActivity extends FragmentActivity {
         mainPagerAdapter.setShipData(currentShipData);
 
         viewPager = (ViewPager)findViewById(R.id.viewPagerLayout);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment fragment = mainPagerAdapter.getItem(position);
+                if (fragment instanceof ShipActivityFragment) {
+                    ((ShipActivityFragment)fragment).notifyVisible();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         viewPager.setAdapter(mainPagerAdapter);
     }
 

@@ -5,63 +5,61 @@
     android:id="@+id/starting_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/eventcardimage"
     android:orientation="vertical"
     tools:context="com.wordpress.a3dtwentyblog.spacetraitors.StartingActivity">
 
-    <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/eventcardimage"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="0dp" />
-
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/new_ship_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:onClick="clickPreFabShip"
         android:padding="10dp"
-        android:text="Take Command"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage"
+        android:text="@string/new_ship"
+        android:textColor="@color/primary_text"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage"
-        app:layout_constraintVertical_bias="0.659" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.52" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/load_ship_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:padding="10dp"
-        android:text="Resume Command"
-        android:textSize="30sp"
+        android:text="@string/load_ship"
+        android:textColor="@color/primary_text"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/button4"
+        app:layout_constraintLeft_toLeftOf="@+id/new_ship_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/new_ship_button" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
-        android:text="@string/app_name"
-        android:textSize="40dp"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="138dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/app_name_description"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13999999" />
 
 </android.support.constraint.ConstraintLayout>

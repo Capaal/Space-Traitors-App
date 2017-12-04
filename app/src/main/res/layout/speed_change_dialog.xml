@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/speed_done_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/speed_done_button"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sd_minus_button" />
+
+    <TextView
+        android:id="@+id/sd_current_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/sd_minus_button"
+        app:layout_constraintEnd_toEndOf="@+id/speed_done_button"
+        app:layout_constraintStart_toStartOf="@+id/speed_done_button"
+        app:layout_constraintTop_toTopOf="@+id/sd_minus_button"
+        tools:text="4" />
+
+    <ImageButton
+        android:id="@+id/sd_plus_button"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/sd_plus_description"
+        android:padding="0dp"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintStart_toEndOf="@+id/sd_current_speed"
+        app:layout_constraintTop_toBottomOf="@+id/sd_extra_message" />
+
+    <ImageButton
+        android:id="@+id/sd_minus_button"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/sd_minus_description"
+        android:padding="0dp"
+        android:src="@android:drawable/presence_busy"
+        app:layout_constraintEnd_toStartOf="@+id/sd_current_speed"
+        app:layout_constraintTop_toBottomOf="@+id/sd_extra_message" />
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/sp_title"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/sd_plus_button"
+        app:layout_constraintStart_toStartOf="@+id/sd_minus_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sd_extra_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/sd_extra_message"
+        android:textColor="@color/accent"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/sd_plus_button"
+        app:layout_constraintStart_toStartOf="@+id/sd_minus_button"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
+</android.support.constraint.ConstraintLayout>

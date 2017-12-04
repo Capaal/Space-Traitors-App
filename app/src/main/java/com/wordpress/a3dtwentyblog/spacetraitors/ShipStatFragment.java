@@ -1,18 +1,16 @@
 package com.wordpress.a3dtwentyblog.spacetraitors;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wordpress.a3dtwentyblog.spacetraitors.databinding.ShipStatEnlargedFragmentBinding;
 
@@ -27,7 +25,7 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
 
     TextView changeTextView;
 
-    private boolean repair = false;
+    private Boolean repair; // I want non-initialized to == null.
     private int currentChange = 0;
 
     public static ShipStatFragment newInstance(ShipData shipData) {
@@ -58,7 +56,6 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
-    //TODO rewrite for lambdas and simplicity
     private void setClickListeners(View view) {
         ConstraintLayout nav = (ConstraintLayout) view.findViewById(R.id.NavBox);
         nav.setOnClickListener((View v) -> clickStat(R.id.NavBox));
@@ -78,10 +75,10 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
         ConstraintLayout lf = (ConstraintLayout) view.findViewById(R.id.LfBox);
         lf.setOnClickListener((View v) -> clickStat(R.id.LfBox));
 
-        Button Repair = (Button) view.findViewById(R.id.RepairButton);
-        Repair.setOnClickListener((View v) -> clickRepair(Repair));
+        Button repairButton = (Button) view.findViewById(R.id.repair_button);
+        repairButton.setOnClickListener((View v) -> clickRepair(repairButton));
 
-        Button damage = (Button) view.findViewById(R.id.DamageButton);
+        Button damage = (Button) view.findViewById(R.id.damage_button);
         damage.setOnClickListener((View v) -> clickDamage(damage));
     }
 
@@ -110,6 +107,10 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
 //    }
 
     public void clickStat(int viewID) {
+        if (repair == null) {
+            Toast.makeText(getContext(), "Select to damage or repair.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         int change;
         String phrase;
         if (repair) {
@@ -124,6 +125,9 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
             case R.id.NavBox:
                 newValue = (currentShipData.getCurrentNavigation()) + change;
                 if (newValue >= 0 && newValue <= currentShipData.getMaxNavigation()) {
+                    if (newValue == currentShipData.getMaxNavigation()) {
+                        //TODO set color to good color else set color to bad color
+                    }
                     currentShipData.setCurrentNavigation(newValue);
                     currentChange++;
                     changeTextView.setText(phrase + currentChange);
@@ -173,7 +177,6 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
                 Log.d(TAG, "clickStat: Switch went to default: " + viewID);
 
         }
-
     }
 
     public void clickRepair(View view) {

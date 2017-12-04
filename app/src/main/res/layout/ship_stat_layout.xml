@@ -143,7 +143,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/upgMax"
                 app:layout_constraintEnd_toStartOf="@+id/upgMax"
                 app:layout_constraintTop_toTopOf="@+id/upgMax"
-                tools:text="8" />
+                tools:text="8"
+                android:layout_marginRight="4dp" />
 
             <TextView
                 android:id="@+id/upgMax"

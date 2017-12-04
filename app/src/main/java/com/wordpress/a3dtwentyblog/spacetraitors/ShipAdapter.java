@@ -72,7 +72,7 @@ public class ShipAdapter extends ArrayAdapter {
         final TextView shipLifeSupport;
 
         ViewHolder (View v) {
-            shipName = (TextView) v.findViewById((R.id.shipName));
+            shipName = (TextView) v.findViewById((R.id.main_ship_name));
             shipNavigation = (TextView) v.findViewById((R.id.shipNavigation));
             shipWeapons = (TextView) v.findViewById((R.id.shipWeapons));
             shipUpgrade = (TextView) v.findViewById((R.id.shipUpgrade));

@@ -3,6 +3,7 @@ package com.wordpress.a3dtwentyblog.spacetraitors;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * Created by Jason on 10/25/2017.
@@ -18,16 +19,10 @@ public class ShipData extends BaseObservable {
     public ShipData(String shipType) {
         loadShipStatsFromXML(shipType);
     }
-    @Bindable
-    public String getShipType() {
-        return shipType;
-    }
 
-
-
-    public void setShipType(String shipType) {
-        this.shipType = shipType;
-    }
+    public static final int MAX_CREW_ALLOWED = 24;
+    public static final int MAX_CREW_MULTIPLIER = 3;
+    private static final String TAG = "ShipData";
 
     private String shipType;
 
@@ -46,17 +41,41 @@ public class ShipData extends BaseObservable {
     private int currentLifeSupport;
 
     private int remainingCrew;
+    private int currentSpeed;
+
+    @Bindable
+    public String getShipType() {
+        return shipType;
+    }
+    public void setShipType(String shipType) {
+        this.shipType = shipType;
+    }
+
+    @Bindable
+    public int getCurrentSpeed() {
+        return currentSpeed;
+    }
+
+    public void setCurrentSpeed(int newSpeed) {
+        if (newSpeed < 0) {
+            throw new IllegalStateException("Speed cannot be less than 0.");
+        }
+        this.currentSpeed = newSpeed;
+        notifyPropertyChanged(BR.currentSpeed);
+    }
 
     @Bindable
     public int getRemainingCrew() {
         return remainingCrew;
     }
 
-    public void setRemainingCrew(int remainingCrew) {
-        this.remainingCrew = remainingCrew;
+    public void setRemainingCrew(int newCrewCount) {
+        if (newCrewCount < 0 || newCrewCount > MAX_CREW_ALLOWED) {
+          throw new IllegalArgumentException("Crew count cannot be below 0.");
+        }
+        this.remainingCrew = newCrewCount;
+        notifyPropertyChanged(BR.remainingCrew);
     }
-
-
 
     public int getMaxNavigation() {
         return maxNavigation;
@@ -112,8 +131,11 @@ public class ShipData extends BaseObservable {
         return currentNavigation;
     }
 
-    public void setCurrentNavigation(int currentNavigation) {
-        this.currentNavigation = currentNavigation;
+    public void setCurrentNavigation(int newNavigation) {
+        if (newNavigation > maxNavigation || newNavigation < 0) {
+            throw new IllegalArgumentException("Stat cannot be > max or < 0.");
+        }
+        this.currentNavigation = newNavigation;
         notifyPropertyChanged(BR.currentNavigation);
     }
     @Bindable
@@ -121,8 +143,11 @@ public class ShipData extends BaseObservable {
         return currentWeapons;
     }
 
-    public void setCurrentWeapons(int currentWeapons) {
-        this.currentWeapons = currentWeapons;
+    public void setCurrentWeapons(int newWeapons) {
+        if (newWeapons > maxWeapons || newWeapons < 0) {
+            throw new IllegalArgumentException("Stat cannot be > max or < 0.");
+        }
+        this.currentWeapons = newWeapons;
         notifyPropertyChanged(BR.currentWeapons);
     }
     @Bindable
@@ -130,8 +155,11 @@ public class ShipData extends BaseObservable {
         return currentUpgrade;
     }
 
-    public void setCurrentUpgrade(int currentUpgrade) {
-        this.currentUpgrade = currentUpgrade;
+    public void setCurrentUpgrade(int newUpgrade) {
+        if (newUpgrade > maxUpgrade || newUpgrade < 0) {
+            throw new IllegalArgumentException("Stat cannot be > max or < 0.");
+        }
+        this.currentUpgrade = newUpgrade;
         notifyPropertyChanged(BR.currentUpgrade);
     }
     @Bindable
@@ -139,15 +167,21 @@ public class ShipData extends BaseObservable {
         return currentCargo;
     }
 
-    public void setCurrentCargo(int currentCargo) {
-        this.currentCargo = currentCargo;
+    public void setCurrentCargo(int newCargo) {
+        if (newCargo > maxCargo || newCargo < 0) {
+            throw new IllegalArgumentException("Stat cannot be > max or < 0.");
+        }
+        this.currentCargo = newCargo;
         notifyPropertyChanged(BR.currentCargo);
     }
     @Bindable
     public int getCurrentShields() {return currentShields;}
 
-    public void setCurrentShields(int currentShields) {
-        this.currentShields = currentShields;
+    public void setCurrentShields(int newShields) {
+        if (newShields > maxShields || newShields < 0) {
+            throw new IllegalArgumentException("Stat cannot be > max or < 0.");
+        }
+        this.currentShields = newShields;
         notifyPropertyChanged(BR.currentShields);
     }
     @Bindable
@@ -155,8 +189,11 @@ public class ShipData extends BaseObservable {
         return currentLifeSupport;
     }
 
-    public void setCurrentLifeSupport(int currentLifeSupport) {
-        this.currentLifeSupport = currentLifeSupport;
+    public void setCurrentLifeSupport(int newLifeSupport) {
+        if (newLifeSupport > maxLifeSupport || newLifeSupport < 0) {
+            throw new IllegalArgumentException("Stat cannot be > max or < 0.");
+        }
+        this.currentLifeSupport = newLifeSupport;
         notifyPropertyChanged(BR.currentLifeSupport);
     }
 
@@ -179,6 +216,7 @@ public class ShipData extends BaseObservable {
     public static final String SHIP_LIFE_SUPPORT_ENTRY_MAX = "maxLifeSupport";
 
     public static final String SHIP_REMAINING_CREW = "remainingCrew";
+    public static final String SHIP_CURRENT_SPEED = "currentSpeed";
 
     public Bundle createShipBundle(Bundle shipBundle) {
         shipBundle.putString(ShipData.SHIP_TYPE_ENTRY, getShipType());
@@ -198,6 +236,7 @@ public class ShipData extends BaseObservable {
         shipBundle.putInt(SHIP_LIFE_SUPPORT_ENTRY_MAX, getMaxLifeSupport());
 
         shipBundle.putInt(SHIP_REMAINING_CREW, getRemainingCrew());
+        shipBundle.putInt(SHIP_CURRENT_SPEED, getCurrentSpeed());
 
         return shipBundle;
     }
@@ -228,7 +267,8 @@ public class ShipData extends BaseObservable {
         setCurrentUpgrade(getMaxUpgrade());
         setCurrentNavigation(getMaxNavigation());
 
-        setRemainingCrew(getMaxLifeSupport()*3);
+        setRemainingCrew(getMaxLifeSupport()*3); // *3 is the Game's defined multiplier for crew.
+        setCurrentSpeed(1); // 1 (ONE) is the default starting speed.
     }
 
     private void loadShipStatsFromBundle(Bundle shipBundle) {
@@ -249,6 +289,7 @@ public class ShipData extends BaseObservable {
         setCurrentNavigation(shipBundle.getInt(SHIP_NAVIGATION_ENTRY));
 
         setRemainingCrew(shipBundle.getInt(SHIP_REMAINING_CREW));
+        setCurrentSpeed(shipBundle.getInt(SHIP_CURRENT_SPEED));
     }
 // TODO Change "Battleship" to and OVERRIDE of toSTRING()
     public enum ShipStatDefaults {

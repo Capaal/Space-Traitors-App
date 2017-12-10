@@ -42,6 +42,27 @@ public class ShipData extends BaseObservable {
 
     private int remainingCrew;
     private int currentSpeed;
+    @Bindable
+    public int getMovementUsed() {
+        return movementUsed;
+    }
+
+    public void setMovementUsed(int movementUsed) {
+        this.movementUsed = movementUsed;
+        notifyPropertyChanged(BR.movementUsed);
+    }
+    @Bindable
+    public int getTurnsUsed() {
+        return turnsUsed;
+    }
+
+    public void setTurnsUsed(int turnsUsed) {
+        this.turnsUsed = turnsUsed;
+        notifyPropertyChanged(BR.turnsUsed);
+    }
+
+    private int movementUsed;
+    private int turnsUsed;
 
     @Bindable
     public String getShipType() {
@@ -218,6 +239,9 @@ public class ShipData extends BaseObservable {
     public static final String SHIP_REMAINING_CREW = "remainingCrew";
     public static final String SHIP_CURRENT_SPEED = "currentSpeed";
 
+    public static final String SHIP_MOVEMENT_USED = "movementUsed";
+    public static final String SHIP_TURNS_USED = "turnsUsed";
+
     public Bundle createShipBundle(Bundle shipBundle) {
         shipBundle.putString(ShipData.SHIP_TYPE_ENTRY, getShipType());
 
@@ -237,6 +261,9 @@ public class ShipData extends BaseObservable {
 
         shipBundle.putInt(SHIP_REMAINING_CREW, getRemainingCrew());
         shipBundle.putInt(SHIP_CURRENT_SPEED, getCurrentSpeed());
+
+        shipBundle.putInt(SHIP_MOVEMENT_USED, getMovementUsed());
+        shipBundle.putInt(SHIP_TURNS_USED, getTurnsUsed());
 
         return shipBundle;
     }
@@ -269,6 +296,9 @@ public class ShipData extends BaseObservable {
 
         setRemainingCrew(getMaxLifeSupport()*3); // *3 is the Game's defined multiplier for crew.
         setCurrentSpeed(1); // 1 (ONE) is the default starting speed.
+
+        setMovementUsed(0); // If loading new ship, no movement has been used that turn.
+        setTurnsUsed(0); // If loading new ship, no turns have been used that turn.
     }
 
     private void loadShipStatsFromBundle(Bundle shipBundle) {
@@ -290,6 +320,9 @@ public class ShipData extends BaseObservable {
 
         setRemainingCrew(shipBundle.getInt(SHIP_REMAINING_CREW));
         setCurrentSpeed(shipBundle.getInt(SHIP_CURRENT_SPEED));
+
+        setMovementUsed(shipBundle.getInt(SHIP_MOVEMENT_USED));
+        setTurnsUsed(shipBundle.getInt(SHIP_TURNS_USED));
     }
 // TODO Change "Battleship" to and OVERRIDE of toSTRING()
     public enum ShipStatDefaults {

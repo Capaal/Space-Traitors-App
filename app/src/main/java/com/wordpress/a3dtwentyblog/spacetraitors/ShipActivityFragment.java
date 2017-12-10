@@ -1,6 +1,8 @@
 package com.wordpress.a3dtwentyblog.spacetraitors;
 
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.drm.DrmStore;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +10,8 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +19,16 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+//import com.wordpress.a3dtwentyblog.spacetraitors.databinding.ShipActivityBinding;
 
 import com.wordpress.a3dtwentyblog.spacetraitors.databinding.ShipActivityBinding;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Jason on 11/15/2017.
@@ -38,6 +46,16 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
     private static final String TAG = "ShipActivityFragment";
 
     private View fragmentView;
+
+    @BindingAdapter("android:layout_weight")
+    public static void setLayoutWeight(View view, int weight) {
+        int finalPosition = weight;
+        if (weight < 0 || weight > 7) {
+            finalPosition = 7;
+        }
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, finalPosition);
+        view.setLayoutParams(p);
+    }
 
     // TODO Make BaseActivity class that implements menu stuff/shared preferences
 
@@ -76,22 +94,30 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
                 actionRecyclerView.getContext(), actionLayoutManager.getOrientation());
         actionRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        ImageButton killCrew = (ImageButton) fragmentView.findViewById(R.id.removeCrew);
+        ImageButton killCrew = (ImageButton) fragmentView.findViewById(R.id.remove_crew);
         killCrew.setOnClickListener((View view) -> modifyCrewCount(-1));
 
-        ImageButton addCrew = (ImageButton) fragmentView.findViewById(R.id.addCrew);
+        ImageButton addCrew = (ImageButton) fragmentView.findViewById(R.id.add_crew);
         addCrew.setOnClickListener((View view) -> modifyCrewCount(1));
 
         Button restartButton = (Button) fragmentView.findViewById(R.id.main_start_turn_button);
-        restartButton.setOnClickListener((View view) -> actionAdapter.resetData(makeActionButtons()));
+        restartButton.setOnClickListener((View view) -> {
+            currentShipData.setMovementUsed(0);
+            currentShipData.setTurnsUsed(0);
+            actionAdapter.resetData(makeActionButtons());
+        });
+//        ImageView lowerSpeed = (ImageView) fragmentView.findViewById((R.id.main_lower_speed_image));
+//        lowerSpeed.setOnClickListener((View view) -> modifySpeed(-1));
+//
+//        ImageView raiseSpeed = (ImageView) fragmentView.findViewById((R.id.main_upper_speed_image));
+//        raiseSpeed.setOnClickListener((View view) -> modifySpeed( 1));
 
-        ImageView lowerSpeed = (ImageView) fragmentView.findViewById((R.id.main_lower_speed_image));
-        lowerSpeed.setOnClickListener((View view) -> modifySpeed(-1));
-
-        ImageView raiseSpeed = (ImageView) fragmentView.findViewById((R.id.main_upper_speed_image));
-        raiseSpeed.setOnClickListener((View view) -> modifySpeed( 1));
+        ItemTouchHelper.Callback callback = new RecyclerCallback(actionAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(actionRecyclerView);
 
         buildCrewImages();
+        modifyMovementTurns(); // Ensures correct images shown
 
         return fragmentView;
     }
@@ -125,7 +151,6 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         }
     }
 
-    // TODO It probably doesn't need a VIEW, it is a variable at top. (fragment)
     // TODO called when fragmentView was NULL while sliding screens?
     private void buildCrewImages() {
         int maxCrew = currentShipData.getMaxLifeSupport() * ShipData.MAX_CREW_MULTIPLIER;
@@ -149,8 +174,27 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         }
     }
 
+    public void modifyMovementTurns() {
+        RecyclerView.ViewHolder moveView = actionRecyclerView.findViewHolderForAdapterPosition(actionAdapter.mDataset.indexOf(ActionButtons.MOVE));
+        RecyclerView.ViewHolder turnView = actionRecyclerView.findViewHolderForAdapterPosition(actionAdapter.mDataset.indexOf(ActionButtons.TURN));
+//        View moveView = actionLayoutManager.findViewByPosition(actionAdapter.mDataset.indexOf(ActionButtons.MOVE));// STrange bug leading to +1? not updating positions in time?
+//        View turnView = actionLayoutManager.findViewByPosition(actionAdapter.mDataset.indexOf(ActionButtons.TURN));
+        if (moveView != null && moveView instanceof ActionAdapter.ViewHolderMovement) {
+            ((ActionAdapter.ViewHolderMovement) moveView).buildBars();
+        } else {
+            Log.d(TAG, "modifyMovementTurns: could not update moveView");
+        }
+        if (turnView != null && turnView instanceof ActionAdapter.ViewHolderMovement) {
+            ((ActionAdapter.ViewHolderMovement) turnView).buildBars();
+        } else {
+            Log.d(TAG, "modifyMovementTurns: Could not update turnView");
+        }
+    }
+
     public void notifyVisible() {
+
         buildCrewImages();
+        modifyMovementTurns();
     }
 
     public ShipData getCurrentShipData() {
@@ -166,7 +210,7 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
             @Override
             public void doClick(ShipActivityFragment fragment, View view, int position) {
                 fragment.showDialogPremade(R.layout.speed_change_dialog);
-                fragment.actionAdapter.removeItem(position);
+      //          fragment.actionAdapter.removeItem(position);
             }
 
             @Override
@@ -198,9 +242,9 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         ATTACK() {
             @Override
             public void doClick(ShipActivityFragment fragment, View view, int position) {
-                Toast.makeText(fragment.getContext(), this.toString(), Toast.LENGTH_SHORT).show();
-                fragment.showDialog();
-                fragment.actionAdapter.removeItem(position);
+      //          Toast.makeText(fragment.getContext(), this.toString(), Toast.LENGTH_SHORT).show();
+                fragment.showDialogPremade(R.layout.attack_dialog);
+            //    fragment.actionAdapter.removeItem(position);
             }
 
             @Override
@@ -211,8 +255,8 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         MINE() {
             @Override
             public void doClick(ShipActivityFragment fragment, View view, int position) {
-                Toast.makeText(fragment.getContext(), this.toString(), Toast.LENGTH_SHORT).show();
-                fragment.showDialog();
+                Toast.makeText(fragment.getContext(), "Draw Resource, then Draw Event.", Toast.LENGTH_LONG).show();
+          //      fragment.showDialog();
                 fragment.actionAdapter.removeItem(position);
             }
 
@@ -224,8 +268,8 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         SECTORACTION() {
             @Override
             public void doClick(ShipActivityFragment fragment, View view, int position) {
-                Toast.makeText(fragment.getContext(), this.toString(), Toast.LENGTH_SHORT).show();
-                fragment.showDialog();
+                Toast.makeText(fragment.getContext(), "Activate Sector Action.", Toast.LENGTH_LONG).show();
+              //  fragment.showDialog();
                 fragment.actionAdapter.removeItem(position);
             }
 
@@ -234,24 +278,68 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
                 return "Sector Action";
             }
         },
-        MOVEMENT() {
+        MOVE() {
             @Override
             public void doClick(ShipActivityFragment fragment, View view, int position) {
-                Toast.makeText(fragment.getContext(), this.toString(), Toast.LENGTH_SHORT).show();
-                fragment.showDialog();
-                fragment.actionAdapter.removeItem(position);
+                ShipData currentShipData = fragment.getCurrentShipData();
+                int currentSpeed = currentShipData.getCurrentSpeed();
+                int movementUsed = currentShipData.getMovementUsed();
+                if (movementUsed < currentSpeed) {
+                    Toast.makeText(fragment.getContext(), "Moved 1 hex.", Toast.LENGTH_SHORT).show();
+                    movementUsed++;
+                    currentShipData.setMovementUsed(movementUsed);
+                    fragment.modifyMovementTurns();
+                } else {
+                    Log.d(TAG, "doClick: triggered an impossible else?"); // TODO just remove if/else
+                }
+                if (movementUsed == currentSpeed) {
+                    fragment.actionAdapter.removeItem(position);
+                    Toast.makeText(fragment.getContext(), "Final movement Used.", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
             public String toString() {
-                return "Move or Turn";
+                return "Move";
             }
+
+            @Override
+            public int getViewType() {return 1;}
+        },
+
+        TURN() {
+            @Override
+            public void doClick(ShipActivityFragment fragment, View view, int position) {
+                ShipData currentShipData = fragment.getCurrentShipData();
+                int turnsAllowed = currentShipData.getCurrentNavigation() - currentShipData.getCurrentSpeed();
+                int turnsUsed = currentShipData.getTurnsUsed();
+                if (turnsUsed < turnsAllowed) {
+                    Toast.makeText(fragment.getContext(), "Turned 1.", Toast.LENGTH_SHORT).show();
+                    turnsUsed++;
+                    currentShipData.setTurnsUsed(turnsUsed);
+                    fragment.modifyMovementTurns();
+                } else {
+                    Log.d(TAG, "doClick: triggered an impossible else?"); // TODO just remove if/else
+                }
+                if (turnsUsed == turnsAllowed) {
+                    fragment.actionAdapter.removeItem(position);
+                    Toast.makeText(fragment.getContext(), "Final turn Used.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "Turn";
+            }
+
+            @Override
+            public int getViewType() {return 2;}
         },
         UPGRADE() {
             @Override
             public void doClick(ShipActivityFragment fragment, View view, int position) {
-                Toast.makeText(fragment.getContext(), this.toString(), Toast.LENGTH_SHORT).show();
-                fragment.showDialog();
+                Toast.makeText(fragment.getContext(), "Utilize Upgrade: Check current upgrade status.", Toast.LENGTH_LONG).show();
+           //     fragment.showDialog();
                 fragment.actionAdapter.removeItem(position);
             }
 
@@ -263,8 +351,8 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         FINISHMOVEMENT() {
             @Override
             public void doClick(ShipActivityFragment fragment, View view, int position) {
-                Toast.makeText(fragment.getContext(), this.toString(), Toast.LENGTH_SHORT).show();
-                fragment.showDialog();
+                Toast.makeText(fragment.getContext(), "Ensure ALL movement is used.", Toast.LENGTH_LONG).show();
+       //         fragment.showDialog();
                 fragment.actionAdapter.removeItem(position);
             }
 
@@ -293,6 +381,10 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
             public String toString() {return "Crew Check";}
         };
 
+        public int getViewType() {
+            return 0;
+        }
+
         private ActionButtons() {}
 
         public void doClick(ShipActivityFragment fragment, View view, int position) {}
@@ -304,15 +396,21 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
 
         int layout;
         ShipData currentShipData;
+        ShipActivityFragment mActivityFragment;
 
-        static MyDialogFragment newInstance(int num, ShipData currentShipData) {
+        static MyDialogFragment newInstance(int num, ShipData currentShipData, ShipActivityFragment activityFragment) {
             MyDialogFragment f = new MyDialogFragment();
             f.setShipData(currentShipData);
+            f.setActivityFragment(activityFragment);
             // Supply num input as an argument.
             Bundle args = new Bundle();
             args.putInt("num", num);
             f.setArguments(args);
             return f;
+        }
+
+        private void setActivityFragment(ShipActivityFragment fragment) {
+            mActivityFragment = fragment;
         }
 
         private void setShipData(ShipData currentShipData) {
@@ -331,13 +429,19 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
             View v = inflater.inflate(layout, container, false);
             switch(layout) {
                 case R.layout.fragment_dialog:
-                    v.findViewById(R.id.dismiss).setOnClickListener(
-                            (View view) -> dismiss());
+                    v.findViewById(R.id.dismiss).setOnClickListener((View view) -> {
+                            dismiss();
+                    //        mActivityFragment.removeAction(ActionButtons.ATTACK);
+                    });
                     break;
                 case R.layout.speed_change_dialog:
-                    v.findViewById(R.id.speed_done_button).setOnClickListener(
-                            (View view) -> speedDone());
                     newSpeed = currentShipData.getCurrentSpeed();
+                    v.findViewById(R.id.speed_done_button).setOnClickListener((View view) -> {
+                        currentShipData.setCurrentSpeed(newSpeed);
+                        dismiss();
+                        mActivityFragment.removeAction(ActionButtons.CHANGESPEED);
+                        mActivityFragment.modifyMovementTurns();
+                    });
                     TextView speed = (TextView)v.findViewById(R.id.sd_current_speed);
                     speed.setText("" + newSpeed);
                     v.findViewById(R.id.sd_minus_button).setOnClickListener((View view) ->
@@ -345,13 +449,21 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
                     v.findViewById(R.id.sd_plus_button).setOnClickListener((View view) ->
                             speedChange(1, v));;
                     break;
+                case R.layout.attack_dialog: // TODO needs to take into account Weapons (for max damage)
+                    v.findViewById(R.id.td_cancel_button).setOnClickListener(
+                            (View view) -> dismiss());
+                    v.findViewById(R.id.td_roll_button).setOnClickListener((View view) -> {
+                            int roll = new Random().nextInt(6) + 1;
+                            Log.d(TAG, "onCreateView: Roll result: " + roll);
+                            ((TextView)v.findViewById(R.id.td_roll_result)).setText("" + roll);
+                    });
+                    v.findViewById(R.id.td_done_button).setOnClickListener((View view) -> {
+                            dismiss();
+                            mActivityFragment.removeAction(ActionButtons.ATTACK);
+                    });
+                    break;
             }
             return v;
-        }
-
-        private void speedDone() {
-            currentShipData.setCurrentSpeed(newSpeed);
-            dismiss();
         }
 
         private void speedChange(int change, View v) {
@@ -370,13 +482,17 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
 
     public void showDialogPremade(int layout) {
         FragmentManager fm = getFragmentManager();
-        MyDialogFragment df = MyDialogFragment.newInstance(layout, currentShipData);
+        MyDialogFragment df = MyDialogFragment.newInstance(layout, currentShipData, this);
         df.show(fm, "Sample Fragment");
     }
 
     public void showDialog() {
         FragmentManager fm = getFragmentManager();
-        MyDialogFragment df = MyDialogFragment.newInstance(R.layout.fragment_dialog, currentShipData);
+        MyDialogFragment df = MyDialogFragment.newInstance(R.layout.fragment_dialog, currentShipData,this);
         df.show(fm, "Sample Fragment");
+    }
+
+    private void removeAction(ActionButtons action) {
+        actionAdapter.removeItem(action);
     }
 }

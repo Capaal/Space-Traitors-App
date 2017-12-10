@@ -66,5 +66,15 @@
     <string name="sd_extra_message">Max speed change: +/- 1.</string>
     <string name="sd_plus_description">Plus image for increasing Speed.</string>
     <string name="sd_minus_description">Minus image for lowing speed.</string>
+    <string name="td_top_text">Attacking!</string>
+    <string name="td_secondary_text">1) Can draw straight line between ships.</string>
+    <string name="td_secondline">2) Target is not further away than CURRENT Navigation.</string>
+    <string name="td_cancel_button">Cancel</string>
+    <string name="td_roll_button">Roll d6:</string>
+    <string name="td_roll_result_default">Waiting for Roll.</string>
+    <string name="td_done_button">Done</string>
+    <string name="ac_title">Attack</string>
+    <string name="ac_roll_button">Roll d6:</string>
+    <string name="ac_result_default">Waiting for Roll.</string>
 
 </resources>

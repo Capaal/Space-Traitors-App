@@ -1,5 +1,6 @@
 package com.wordpress.a3dtwentyblog.spacetraitors;
 
+import android.content.SharedPreferences;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
@@ -20,9 +21,14 @@ public class ShipData extends BaseObservable {
         loadShipStatsFromXML(shipType);
     }
 
+    public ShipData(SharedPreferences sharedPreferences) {
+        loadShipFromSavedPreferecnes(sharedPreferences);
+    }
+
     public static final int MAX_CREW_ALLOWED = 24;
     public static final int MAX_CREW_MULTIPLIER = 3;
     private static final String TAG = "ShipData";
+    public static final String SAVED_SHIP = "LastSavedShip";
 
     private String shipType;
 
@@ -241,6 +247,57 @@ public class ShipData extends BaseObservable {
 
     public static final String SHIP_MOVEMENT_USED = "movementUsed";
     public static final String SHIP_TURNS_USED = "turnsUsed";
+
+    public void saveShipToSharedPreferences(SharedPreferences.Editor editor) {
+        //Indicate that the default shared prefs have been set
+        editor.putBoolean("initialized", true);
+        editor.putString(ShipData.SHIP_TYPE_ENTRY, getShipType());
+
+        editor.putInt(SHIP_NAVIGATION_ENTRY, getCurrentNavigation());
+        editor.putInt(SHIP_WEAPONS_ENTRY, getCurrentWeapons());
+        editor.putInt(SHIP_UPGRADE_ENTRY, getCurrentUpgrade());
+        editor.putInt(SHIP_CARGO_ENTRY, getCurrentCargo());
+        editor.putInt(SHIP_SHIELDS_ENTRY, getCurrentShields());
+        editor.putInt(SHIP_LIFE_SUPPORT_ENTRY, getCurrentLifeSupport());
+
+        editor.putInt(SHIP_NAVIGATION_ENTRY_MAX, getMaxNavigation());
+        editor.putInt(SHIP_WEAPONS_ENTRY_MAX, getMaxWeapons());
+        editor.putInt(SHIP_UPGRADE_ENTRY_MAX, getMaxUpgrade());
+        editor.putInt(SHIP_CARGO_ENTRY_MAX, getMaxCargo());
+        editor.putInt(SHIP_SHIELDS_ENTRY_MAX, getMaxShields());
+        editor.putInt(SHIP_LIFE_SUPPORT_ENTRY_MAX, getMaxLifeSupport());
+
+        editor.putInt(SHIP_REMAINING_CREW, getRemainingCrew());
+        editor.putInt(SHIP_CURRENT_SPEED, getCurrentSpeed());
+
+        editor.putInt(SHIP_MOVEMENT_USED, getMovementUsed());
+        editor.putInt(SHIP_TURNS_USED, getTurnsUsed());
+    }
+
+    public void loadShipFromSavedPreferecnes(SharedPreferences sharedPreferences) {
+
+        setShipType(sharedPreferences.getString(SHIP_TYPE_ENTRY, ""));
+
+        setMaxCargo(sharedPreferences.getInt(SHIP_CARGO_ENTRY_MAX, 0));
+        setMaxNavigation(sharedPreferences.getInt(SHIP_NAVIGATION_ENTRY_MAX, 0));
+        setMaxWeapons(sharedPreferences.getInt(SHIP_WEAPONS_ENTRY_MAX, 0));
+        setMaxUpgrade(sharedPreferences.getInt(SHIP_UPGRADE_ENTRY_MAX, 0));
+        setMaxShields(sharedPreferences.getInt(SHIP_SHIELDS_ENTRY_MAX, 0));
+        setMaxLifeSupport(sharedPreferences.getInt(SHIP_LIFE_SUPPORT_ENTRY_MAX, 0));
+
+        setCurrentCargo(sharedPreferences.getInt(SHIP_CARGO_ENTRY, 0));
+        setCurrentWeapons(sharedPreferences.getInt(SHIP_WEAPONS_ENTRY, 0));
+        setCurrentUpgrade(sharedPreferences.getInt(SHIP_UPGRADE_ENTRY, 0));
+        setCurrentShields(sharedPreferences.getInt(SHIP_SHIELDS_ENTRY, 0));
+        setCurrentLifeSupport(sharedPreferences.getInt(SHIP_LIFE_SUPPORT_ENTRY, 0));
+        setCurrentNavigation(sharedPreferences.getInt(SHIP_NAVIGATION_ENTRY, 0));
+
+        setRemainingCrew(sharedPreferences.getInt(SHIP_REMAINING_CREW, 0));
+        setCurrentSpeed(sharedPreferences.getInt(SHIP_CURRENT_SPEED, 0));
+
+        setMovementUsed(sharedPreferences.getInt(SHIP_MOVEMENT_USED, 0));
+        setTurnsUsed(sharedPreferences.getInt(SHIP_TURNS_USED, 0));
+    }
 
     public Bundle createShipBundle(Bundle shipBundle) {
         shipBundle.putString(ShipData.SHIP_TYPE_ENTRY, getShipType());

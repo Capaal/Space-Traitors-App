@@ -1,6 +1,7 @@
 package com.wordpress.a3dtwentyblog.spacetraitors;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,7 +21,17 @@ public class PagerCollectionActivity extends FragmentActivity {
 
     private ShipData currentShipData;
 
+
     private static final String TAG = "PagerCollectionActivity";
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences savedPreferences = getSharedPreferences(ShipData.SAVED_SHIP, 0);
+        SharedPreferences.Editor editor = savedPreferences.edit();
+        currentShipData.saveShipToSharedPreferences(editor);
+        editor.commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +76,11 @@ public class PagerCollectionActivity extends FragmentActivity {
         Intent startingIntent = getIntent();
         if (startingIntent.hasExtra(Intent.EXTRA_TEXT)) {
             String shipType = startingIntent.getStringExtra(Intent.EXTRA_TEXT);
-            currentShipData = new ShipData(shipType);
+            if (shipType.equals(ShipData.SAVED_SHIP)) {
+                    currentShipData = new ShipData(getSharedPreferences(ShipData.SAVED_SHIP, 0));
+                } else {
+                    currentShipData = new ShipData(shipType);
+            }
         } else {
             Log.d(TAG, "defaultSetup: Default setup triggered without intent having ship data.");
         }
@@ -78,6 +93,10 @@ public class PagerCollectionActivity extends FragmentActivity {
     protected void onSaveInstanceState(Bundle outState) {
         outState = currentShipData.createShipBundle(outState);
         super.onSaveInstanceState(outState);
+    }
+
+    public void setCurrentPage(int page) {
+        viewPager.setCurrentItem(page, true);
     }
 
     public ShipData getCurrentShipData() {

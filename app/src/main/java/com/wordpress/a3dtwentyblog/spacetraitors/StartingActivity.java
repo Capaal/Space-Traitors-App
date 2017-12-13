@@ -1,12 +1,14 @@
 package com.wordpress.a3dtwentyblog.spacetraitors;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StartingActivity extends AppCompatActivity {
@@ -17,6 +19,16 @@ public class StartingActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.starting_activity);
+        findViewById(R.id.load_ship_button).setOnClickListener((View view) -> {
+            SharedPreferences sharedPrefs = getSharedPreferences(ShipData.SAVED_SHIP, 0);
+            if(sharedPrefs.contains("initialized")) {
+                Intent intent = new Intent(this, PagerCollectionActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, ShipData.SAVED_SHIP);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Previous ship does not exisit.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void clickPreFabShip(View view) {

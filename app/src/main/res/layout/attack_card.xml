@@ -4,7 +4,7 @@
     android:id="@+id/attack_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardBackgroundColor="@color/primary"
+    card_view:cardBackgroundColor="@color/primary_dark"
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="4dp"
     card_view:cardUseCompatPadding="true"

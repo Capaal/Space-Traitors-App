@@ -1,20 +1,17 @@
 package com.wordpress.a3dtwentyblog.spacetraitors;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.wordpress.a3dtwentyblog.spacetraitors.databinding.ShipActivityBinding;
 
 import java.util.ArrayList;
 
@@ -65,7 +62,7 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onItemClear() {
-            itemView.setBackgroundColor(0);
+            itemView.setBackgroundColor(ResourcesCompat.getColor(fragment.getResources(), R.color.primary_dark, null));
         }
     }
 
@@ -108,9 +105,6 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     } else {
                         ((ImageView) bars.getChildAt(i)).setVisibility(View.INVISIBLE);
                     }
-                    //            mark red if currentspeed - movementUsed  greater than I (So 4 speed - 2 movement used = 2 is > i=0 then mark green)
-                    //            mark green if currentspeed - movementUsed is greater than i but less than speed ()
-                    //            mark invisible if i is greater than speed
                 }
             } else { // is turn.
                 for (int i = 0; i < bars.getChildCount(); i++) {
@@ -135,7 +129,7 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onItemClear() {
-            itemView.setBackgroundColor(0);
+            itemView.setBackgroundColor(ResourcesCompat.getColor(fragment.getResources(), R.color.primary_dark, null));
         }
     }
 
@@ -186,13 +180,7 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case 1:
             case 2:
                 ((ViewHolderMovement)holder).displayTextView.setText(mDataset.get(position).toString());
-                if (mDataset.get(position).equals(ShipActivityFragment.ActionButtons.MOVE)) {
-                    ((ViewHolderMovement) holder).buildBars();
-                    Log.d(TAG, "onBindViewHolder: bind move");
-                } else {
-                    Log.d(TAG, "onBindViewHolder: bind turn");
-                    ((ViewHolderMovement) holder).buildBars();
-                }
+                ((ViewHolderMovement) holder).buildBars();
                 break;
         }
 

@@ -63,7 +63,7 @@
     <string name="app_name_description">Space Traitors</string>
     <string name="speed_done_button">Done</string>
     <string name="sp_title">Change Speed</string>
-    <string name="sd_extra_message">Max speed change: +/- 1.</string>
+    <string name="sd_extra_message">Reminder: Manual speed change limited to +/- 1.</string>
     <string name="sd_plus_description">Plus image for increasing Speed.</string>
     <string name="sd_minus_description">Minus image for lowing speed.</string>
     <string name="td_top_text">Attacking!</string>
@@ -75,6 +75,6 @@
     <string name="td_done_button">Done</string>
     <string name="ac_title">Attack</string>
     <string name="ac_roll_button">Roll d6:</string>
-    <string name="ac_result_default">Waiting for Roll.</string>
+    <string name="ac_result_default">NA</string>
 
 </resources>

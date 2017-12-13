@@ -11,20 +11,21 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/smallerspace">
 
         <Button
             android:id="@+id/damage_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:onClick="clickDamage"
             android:text="@string/damage_button"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/repair_button"
@@ -32,12 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:onClick="clickRepair"
             android:text="@string/repair_button"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/changeTextView"
@@ -68,10 +69,11 @@
 
             <ImageView
                 android:id="@+id/navImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/primary_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/test"
+                android:src="@drawable/defaultbox"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -127,6 +129,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/navMax"
                 app:layout_constraintStart_toStartOf="@+id/navMax"
                 tools:text="NAV" />
+
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -145,9 +148,11 @@
 
             <ImageView
                 android:id="@+id/weaImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/test"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/primary_dark"
+                android:scaleType="fitXY"
+                android:src="@drawable/defaultbox"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -221,9 +226,11 @@
 
             <ImageView
                 android:id="@+id/upgImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/test"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/primary_dark"
+                android:scaleType="fitXY"
+                android:src="@drawable/defaultbox"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -297,9 +304,11 @@
 
             <ImageView
                 android:id="@+id/crgImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/test"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/primary_dark"
+                android:scaleType="fitXY"
+                android:src="@drawable/defaultbox"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -374,9 +383,11 @@
 
             <ImageView
                 android:id="@+id/shieldImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/test"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/primary_dark"
+                android:scaleType="fitXY"
+                android:src="@drawable/defaultbox"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -450,9 +461,11 @@
 
             <ImageView
                 android:id="@+id/lifeSupportImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/test"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@color/primary_dark"
+                android:scaleType="fitXY"
+                android:src="@drawable/defaultbox"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

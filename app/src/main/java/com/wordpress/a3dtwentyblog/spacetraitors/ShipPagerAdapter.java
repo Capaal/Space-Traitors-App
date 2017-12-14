@@ -7,6 +7,7 @@ import android.util.Log;
 
 /**
  * Created by Jason on 11/15/2017.
+ * Handles Page Viewer for the App's main pages.
  */
 
 public class ShipPagerAdapter extends FragmentPagerAdapter {
@@ -20,7 +21,6 @@ public class ShipPagerAdapter extends FragmentPagerAdapter {
 
     public ShipPagerAdapter(FragmentManager fm) {
         super(fm);
-
     }
 
     @Override
@@ -36,11 +36,10 @@ public class ShipPagerAdapter extends FragmentPagerAdapter {
                     shipStatFragment = ShipStatFragment.newInstance(shipData);                }
                 return shipStatFragment;
             default:
-                Log.d(TAG, "getItem: Switch went to default.");
+                Log.e(TAG, "getItem: Switch went to default.");
                 return ShipActivityFragment.newInstance(shipData);
         }
     }
-
 
     @Override
     public int getCount() {return 2;}

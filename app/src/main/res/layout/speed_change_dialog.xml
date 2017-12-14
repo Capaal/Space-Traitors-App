@@ -3,19 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/defaultbox">
 
     <Button
         android:id="@+id/speed_done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/speed_done_button"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/sd_plus_button"
+        app:layout_constraintStart_toStartOf="@+id/sd_minus_button"
         app:layout_constraintTop_toBottomOf="@+id/sd_minus_button" />
 
     <TextView
@@ -29,8 +32,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/sd_minus_button"
-        app:layout_constraintEnd_toEndOf="@+id/speed_done_button"
-        app:layout_constraintStart_toStartOf="@+id/speed_done_button"
+        app:layout_constraintEnd_toEndOf="@+id/sd_extra_message"
+        app:layout_constraintStart_toStartOf="@+id/sd_extra_message"
         app:layout_constraintTop_toTopOf="@+id/sd_minus_button"
         tools:text="4" />
 
@@ -75,13 +78,13 @@
         android:id="@+id/sd_extra_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="8dp"
         android:text="@string/sd_extra_message"
         android:textColor="@color/accent"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/sd_plus_button"
-        app:layout_constraintStart_toStartOf="@+id/sd_minus_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 </android.support.constraint.ConstraintLayout>

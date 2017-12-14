@@ -14,19 +14,10 @@
     <string name="pref_auto_kill_crew_label">Auto Kill Crew</string>
     <string name="pref_auto_kill_crew_key" translatable="false">auto_kill_crew</string>
 
+
+
     <string name="pref_show_true">Aid Turned On</string>
     <string name="pref_show_false">Aid Deactivated</string>
-
-
-    <!--Ship Max Stats-->
-    <string-array name="battleship_max_stats">
-        <item>3</item>
-        <item>5</item>
-        <item>4</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </string-array>
 
     <string name="navigation_long_name">Navigation</string>
     <string name="navigation_short_name">NAV</string>
@@ -71,7 +62,7 @@
     <string name="td_secondline">2) Target is not further away than CURRENT Navigation.</string>
     <string name="td_cancel_button">Cancel</string>
     <string name="td_roll_button">Roll d6:</string>
-    <string name="td_roll_result_default">Waiting for Roll.</string>
+    <string name="td_roll_result_default">Result.</string>
     <string name="td_done_button">Done</string>
     <string name="ac_title">Attack</string>
     <string name="ac_roll_button">Roll d6:</string>

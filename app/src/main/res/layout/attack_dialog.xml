@@ -16,16 +16,16 @@
         android:text="@string/td_top_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/primary_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/td_firstline"
+        app:layout_constraintStart_toStartOf="@+id/td_firstline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/td_firstline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="35dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
         android:text="@string/td_secondary_text"
         android:textAlignment="center"
@@ -51,22 +51,24 @@
 
     <Button
         android:id="@+id/td_cancel_button"
-        android:layout_width="wrap_content"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/td_cancel_button"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/td_roll_button"
         app:layout_constraintTop_toBottomOf="@+id/td_secondline" />
 
     <Button
         android:id="@+id/td_roll_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/td_roll_button"
-        app:layout_constraintStart_toEndOf="@+id/td_cancel_button"
+        app:layout_constraintEnd_toEndOf="@+id/td_secondline"
+        app:layout_constraintStart_toStartOf="@+id/td_secondline"
         app:layout_constraintTop_toBottomOf="@+id/td_secondline" />
 
     <TextView
@@ -74,7 +76,6 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/red"
@@ -82,7 +83,6 @@
         android:text="@string/td_roll_result_default"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toBottomOf="@+id/td_roll_button"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/td_roll_button"
         app:layout_constraintTop_toTopOf="@+id/td_roll_button" />
 

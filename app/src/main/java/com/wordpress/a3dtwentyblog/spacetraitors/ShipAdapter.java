@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by Jason on 11/13/2017.
+ * Adapter to handle ship list for ChooseShip.java 's list view.
  */
 
 public class ShipAdapter extends ArrayAdapter {
@@ -37,7 +38,6 @@ public class ShipAdapter extends ArrayAdapter {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = layoutInflater.inflate(layoutResource, parent, false);
-
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -58,9 +58,7 @@ public class ShipAdapter extends ArrayAdapter {
     }
 
     @Override
-    public int getCount() {
-        return defaultShips.size();
-    }
+    public int getCount() {return defaultShips.size();}
 
     private class ViewHolder {
         final TextView shipName;
@@ -80,6 +78,5 @@ public class ShipAdapter extends ArrayAdapter {
             shipShields = (TextView) v.findViewById((R.id.shipShields));
             shipLifeSupport = (TextView) v.findViewById((R.id.shipLifeSupport));
         }
-
     }
 }

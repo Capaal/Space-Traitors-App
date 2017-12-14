@@ -109,3 +109,5 @@ app/build/tmp/bundleAppClassesDebug/MANIFEST.MF
 app/proguard-rules.pro
 app/src/androidTest/java/com/wordpress/a3dtwentyblog/spacetraitors/ExampleInstrumentedTest.java
 build/android-profile/*
+.idea/*
+app/build/*

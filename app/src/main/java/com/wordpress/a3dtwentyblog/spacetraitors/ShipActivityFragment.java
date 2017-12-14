@@ -31,14 +31,16 @@ import java.util.Random;
 
 /**
  * Created by Jason on 11/15/2017.
+ * App's main page.
  */
 
 public class ShipActivityFragment extends android.support.v4.app.Fragment  {
 
     private ShipData currentShipData;
     private ArrayList<ActionButtons> actionButtonDataSet;
+    private View fragmentView;
 
-    private Toast toastObject;
+    private Toast toastObject; // Used for cancelling previous toast message early.
 
     private RecyclerView actionRecyclerView;
     private ActionAdapter actionAdapter;
@@ -46,20 +48,7 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
 
     private static final String TAG = "ShipActivityFragment";
 
-    private View fragmentView;
-
-    @BindingAdapter("android:layout_weight")
-    public static void setLayoutWeight(View view, int weight) {
-        int finalPosition = weight;
-        if (weight < 0 || weight > 7) {
-            finalPosition = 7;
-        }
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, finalPosition);
-        view.setLayoutParams(p);
-    }
-
     // TODO Make BaseActivity class that implements menu stuff/shared preferences
-
     public static ShipActivityFragment newInstance(ShipData shipData) {
         ShipActivityFragment shipActivityFragmentFragment = new ShipActivityFragment();
         shipActivityFragmentFragment.currentShipData = shipData;
@@ -77,37 +66,40 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         if (currentShipData == null) {
             currentShipData = ((PagerCollectionActivity) getActivity()).getCurrentShipData();
         }
-
+        // Set-up data binding (requires currenShipData to be non-null)
         binding.setShipData(currentShipData);
         binding.mainIncludeShipStats.setShipData(currentShipData);
         binding.executePendingBindings();
-
-        actionRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.main_action_recycler);
+        // Set-up RecyclerView
+        actionRecyclerView = fragmentView.findViewById(R.id.main_action_recycler);
         actionLayoutManager = new LinearLayoutManager(getContext());
         actionRecyclerView.setLayoutManager(actionLayoutManager);
-
+        // Sets actionButtonDataSet to array from ActionButtons enum.
         actionButtonDataSet = makeActionButtons();
-
+        // Set-up Main action buttons within RecyclerView (requires non-null actionButtonDataSet).
         actionAdapter = new ActionAdapter(actionButtonDataSet, this);
         actionRecyclerView.setAdapter(actionAdapter);
-
+        // RecyclerView decoration
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 actionRecyclerView.getContext(), actionLayoutManager.getOrientation());
         actionRecyclerView.addItemDecoration(dividerItemDecoration);
-
-        ImageButton killCrew = (ImageButton) fragmentView.findViewById(R.id.remove_crew);
-        killCrew.setOnClickListener((View view) -> modifyCrewCount(-1));
-
-        ImageButton addCrew = (ImageButton) fragmentView.findViewById(R.id.add_crew);
-        addCrew.setOnClickListener((View view) -> modifyCrewCount(1));
-
-        ImageButton restartButton = (ImageButton) fragmentView.findViewById(R.id.main_start_turn_button);
-        restartButton.setOnClickListener((View view) -> {
+        // Set-up Gesture controls for recyclerView.
+        ItemTouchHelper.Callback callback = new RecyclerCallback(actionAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(actionRecyclerView);
+        // Set RemoveCrew ImageButton to change current Crew Count (negative 1).
+        fragmentView.findViewById(R.id.remove_crew).setOnClickListener((View view) ->
+                modifyCrewCount(-1));
+        // Set AddCrew ImageButton to change current crew count (positive 1)
+        fragmentView.findViewById(R.id.add_crew).setOnClickListener((View view) ->
+                modifyCrewCount(1));
+        // Set restart turn ImageButton to remake buttons and set to turn defaults.
+        fragmentView.findViewById(R.id.main_start_turn_button).setOnClickListener((View view) -> {
             currentShipData.setMovementUsed(0);
             currentShipData.setTurnsUsed(0);
             actionAdapter.resetData(makeActionButtons());
         });
-
+        // Set-up seekbar (speedbar) TODO Improve functionality of seekbar (decorations, numbder display.)
         SeekBar mySeekBar = fragmentView.findViewById(R.id.mySeekBar);
         mySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
              @Override
@@ -126,26 +118,17 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
 
              }
          });
-
+        // Set ship stats to slide to second main fragment.
         fragmentView.findViewById(R.id.main_include_ship_stats).setOnClickListener((View view) -> {
             ((PagerCollectionActivity)getActivity()).setCurrentPage(1);
         });
-//        ImageView lowerSpeed = (ImageView) fragmentView.findViewById((R.id.main_lower_speed_image));
-//        lowerSpeed.setOnClickListener((View view) -> modifySpeed(-1));
-//
-//        ImageView raiseSpeed = (ImageView) fragmentView.findViewById((R.id.main_upper_speed_image));
-//        raiseSpeed.setOnClickListener((View view) -> modifySpeed( 1));
-
-                ItemTouchHelper.Callback callback = new RecyclerCallback(actionAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(actionRecyclerView);
 
         buildCrewImages();
         modifyMovementTurns(); // Ensures correct images shown
 
         return fragmentView;
     }
-
+    // Builds list of Action Buttons for use in RecyclerView
     private ArrayList<ActionButtons> makeActionButtons() {
         ArrayList<ActionButtons> actionButtonDataSet = new ArrayList<ActionButtons>();
         for (ActionButtons action : ActionButtons.values()) {
@@ -153,7 +136,7 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         }
         return actionButtonDataSet;
     }
-
+    // Helper method for making toasts to handle cancelling previous toast early.
     private void makeToast(String msg, int length) {
         if (toastObject != null) {
             toastObject.cancel();
@@ -161,7 +144,7 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
         toastObject = Toast.makeText(getContext(), msg, length);
         toastObject.show();
     }
-
+    // Handles changes to Crew count and legality, then notifies to update crew images and count.
     public void modifyCrewCount(int change) {
         int currentCrew = currentShipData.getRemainingCrew();
         if ((currentCrew + change) < 0) {
@@ -175,17 +158,17 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
     }
 
     // TODO called when fragmentView was NULL while sliding screens?
+    // Manually updates every crew image for: fine, sick, dead, invisible. TODO called too often? Inefficient?
     private void buildCrewImages() {
-        if (fragmentView != null) { // TEMP FIX, sliding sometimes leads to here with null view.
-
-
+        if (fragmentView != null) { // TEMP FIX, sliding sometimes leads to here with null view. TODO
             int maxCrew = currentShipData.getMaxLifeSupport() * ShipData.MAX_CREW_MULTIPLIER;
             int currentMaxCrew = currentShipData.getCurrentLifeSupport() * ShipData.MAX_CREW_MULTIPLIER;
             int remainingCrew = currentShipData.getRemainingCrew();
-            GridLayout crewGrid = (GridLayout) fragmentView.findViewById(R.id.crew_grid);
+            GridLayout crewGrid = fragmentView.findViewById(R.id.crew_grid);
 
+            // For each crew image within the GridLayout (usually 24)
             for (int i = 0; i < crewGrid.getChildCount(); i++) {
-                if (i < remainingCrew && i >= currentMaxCrew) { // More crew than can be supported by LifeSupport
+                if (i < remainingCrew && i >= currentMaxCrew) { // More living crew than can be supported by LifeSupport
                     ((ImageView) crewGrid.getChildAt(i)).setImageResource(R.drawable.sickface);
                     crewGrid.getChildAt(i).setVisibility(View.VISIBLE);
                 } else if (i < remainingCrew) { // Living crew within LifeSupport
@@ -194,25 +177,25 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
                 } else if (i >= remainingCrew && i < maxCrew) { // Dead crew but below ship's max
                     ((ImageView) crewGrid.getChildAt(i)).setImageResource(R.drawable.deadface);
                     crewGrid.getChildAt(i).setVisibility(View.VISIBLE);
-                } else { // Beyond ships max but dead is dead
+                } else { // Beyond ships max but not living so we don't want to see.
                     crewGrid.getChildAt(i).setVisibility(View.GONE);
                 }
             }
         } else {
-            Log.d(TAG, "buildCrewImages: Null fragmentview");
+            Log.e(TAG, "buildCrewImages: Null fragmentview");
         }
     }
-
+    // Updates Move and Turn Action Card's images based on movement rules.
+    // TODO often called with a NULL actionRecyclerView Bug?
+    // TODO Extra if/else statments due to odd NULL values.
     public void modifyMovementTurns() {
         if (actionRecyclerView != null) {
             RecyclerView.ViewHolder moveView = actionRecyclerView.findViewHolderForAdapterPosition(actionAdapter.mDataset.indexOf(ActionButtons.MOVE));
             RecyclerView.ViewHolder turnView = actionRecyclerView.findViewHolderForAdapterPosition(actionAdapter.mDataset.indexOf(ActionButtons.TURN));
-//        View moveView = actionLayoutManager.findViewByPosition(actionAdapter.mDataset.indexOf(ActionButtons.MOVE));// STrange bug leading to +1? not updating positions in time?
-//        View turnView = actionLayoutManager.findViewByPosition(actionAdapter.mDataset.indexOf(ActionButtons.TURN));
             if (moveView != null && moveView instanceof ActionAdapter.ViewHolderMovement) {
                 ((ActionAdapter.ViewHolderMovement) moveView).buildBars();
             } else {
-                Log.d(TAG, "modifyMovementTurns: could not update moveView");
+                Log.d(TAG, "modifyMovementTurns: could not update moveView"); // Could not find the Action Button MOVE, bug? reasonable if gone?
             }
             if (turnView != null && turnView instanceof ActionAdapter.ViewHolderMovement) {
                 ((ActionAdapter.ViewHolderMovement) turnView).buildBars();
@@ -220,22 +203,28 @@ public class ShipActivityFragment extends android.support.v4.app.Fragment  {
                 Log.d(TAG, "modifyMovementTurns: Could not update turnView");
             }
         } else {
-            Log.d(TAG, "modifyMovementTurns: actionRecyclerView was null during swipe (probably)");
+            Log.e(TAG, "modifyMovementTurns: actionRecyclerView was null during swipe (probably)");
         }
     }
 
+    // Called when this fragment is made visible TODO Better way to handle? Being called during an invalid state? (see individual method notes).
     public void notifyVisible() {
-
         buildCrewImages();
         modifyMovementTurns();
     }
 
-    public ShipData getCurrentShipData() {
-        return currentShipData;
+    public ShipData getCurrentShipData() {return currentShipData;}
+
+    // Custom DataBinding to allow modification of the current Speed's layout position (speedbar)
+    @BindingAdapter("android:layout_weight")
+    public static void setLayoutWeight(View view, int weight) {
+        int finalPosition = weight;
+        if (weight < 0 || weight > 7) {
+            finalPosition = 7;
+        }
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, finalPosition);
+        view.setLayoutParams(p);
     }
-
-
-
 
     public enum ActionButtons {
 

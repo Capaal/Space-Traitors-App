@@ -16,10 +16,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
+ * Handles implementing ShipActivityFragment's RecyclerView cards via ActionButtons enum.
  * Created by Jason on 11/13/2017.
  */
 
-public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter{
+public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements ItemTouchHelperAdapter {
 
     public ArrayList<ShipActivityFragment.ActionButtons> mDataset;
     private ShipActivityFragment fragment;
@@ -35,18 +37,15 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         removeItem(position);
     }
 
+    // View Holder for majority of Cards (NOT Move or Turn). Case 0
     public class ViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
 
-        public View view;
-        public TextView displayTextView;
-        public Context context;
+        public TextView displayTextView; // Layout's main textView displaying enum's toString()
 
         public ViewHolder(CardView v, Context context) {
             super(v);
-            this.view = v;
-            this.context = context;
-            displayTextView = (TextView) v.findViewById(R.id.info_text);
-
+            displayTextView = v.findViewById(R.id.info_text);
+            // On clicking this card, run that enum's doClick method.
             v.setOnClickListener((View view) -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
@@ -65,23 +64,20 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemView.setBackgroundColor(ResourcesCompat.getColor(fragment.getResources(), R.color.primary_dark, null));
         }
     }
-
+    // View Holder for Movement Cards (Move and Turn) Case 1 & 2.
     public class ViewHolderMovement extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
 
-        public View view;
-        public TextView displayTextView;
-        public Context context;
-        public LinearLayout bars;
-        private boolean isMove = true;
+        private TextView displayTextView; // Enum's toString()
+        private LinearLayout bars;
+        private boolean isMove = true; // True = Move enum, false = Turn enum
         private ShipData mShipData;
 
         public ViewHolderMovement(CardView v, Context context, ShipData currentShipData) {
             super(v);
-            this.view = v;
-            this.context = context;
             this.bars = v.findViewById(R.id.bar_line);
-            displayTextView = (TextView) v.findViewById(R.id.info_text);
+            displayTextView = v.findViewById(R.id.info_text);
             mShipData = currentShipData;
+            // On clicking this action, run enum's doClick() method.
             v.setOnClickListener((View view) -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
@@ -95,28 +91,30 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             int currentspeed = mShipData.getCurrentSpeed();
             if (isMove) {
                 int movementUsed = mShipData.getMovementUsed();
-                for (int i = 0; i < bars.getChildCount(); i++) {
-                    if (i < movementUsed) {
-                        ((ImageView) bars.getChildAt(i)).setImageResource(R.drawable.greenbar);
-                        ((ImageView) bars.getChildAt(i)).setVisibility(View.VISIBLE);
-                    } else if (i >= movementUsed && i < currentspeed) { // when more than movement used but less than speed
-                        ((ImageView) bars.getChildAt(i)).setImageResource(R.drawable.redbar);
-                        ((ImageView) bars.getChildAt(i)).setVisibility(View.VISIBLE);
-                    } else {
-                        ((ImageView) bars.getChildAt(i)).setVisibility(View.INVISIBLE);
+                for (int i = 0; i < bars.getChildCount(); i++) { // Typically 7 bars.
+                    ImageView bar = (ImageView) bars.getChildAt(i);
+                    if (i < movementUsed) { // If bar represents a notch of used Movement.
+                        bar.setImageResource(R.drawable.greenbar);
+                        bar.setVisibility(View.VISIBLE);
+                    } else if (i >= movementUsed && i < currentspeed) { // when more than movementUsed used but less than speed
+                        bar.setImageResource(R.drawable.redbar);
+                        bar.setVisibility(View.VISIBLE);
+                    } else { // Beyond ship's capabilities.
+                        bar.setVisibility(View.INVISIBLE);
                     }
                 }
             } else { // is turn.
-                for (int i = 0; i < bars.getChildCount(); i++) {
-                    int turnsUsed = mShipData.getTurnsUsed();
-                    if (i < turnsUsed) {
-                        ((ImageView) bars.getChildAt(i)).setImageResource(R.drawable.greenbar);
-                        ((ImageView) bars.getChildAt(i)).setVisibility(View.VISIBLE);
+                int turnsUsed = mShipData.getTurnsUsed();
+                for (int i = 0; i < bars.getChildCount(); i++) { // Usually 7 bars.
+                    ImageView bar = (ImageView) bars.getChildAt(i);
+                    if (i < turnsUsed) { // If bar represents a used turn action.
+                        bar.setImageResource(R.drawable.greenbar);
+                        bar.setVisibility(View.VISIBLE);
                     } else if (i >= turnsUsed && i < (mShipData.getCurrentNavigation() - currentspeed)) { // when more than movement used but less than speed
-                        ((ImageView) bars.getChildAt(i)).setImageResource(R.drawable.redbar);
-                        ((ImageView) bars.getChildAt(i)).setVisibility(View.VISIBLE);
-                    } else {
-                        ((ImageView) bars.getChildAt(i)).setVisibility(View.INVISIBLE);
+                        bar.setImageResource(R.drawable.redbar);
+                        bar.setVisibility(View.VISIBLE);
+                    } else { // Beyond ship's capabilities.
+                        bar.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -133,21 +131,24 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    // ActionButtons enum define's which viewType it uses. default 0
     @Override
     public int getItemViewType(int position) {
         return mDataset.get(position).getViewType();
     }
 
     // Create new views (invoked by the layout manager)
+    // ActionButtons enum defines view (default 0)
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        android.support.v7.widget.CardView v;
-        ViewHolder vh;
+
+        CardView v;
+
         switch (viewType){
             case 0:
                 v = (CardView) LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.action_card, parent, false);
-                vh = new ViewHolder(v, parent.getContext());
+                ViewHolder vh = new ViewHolder(v, parent.getContext());
                 return vh;
             case 1:
                 v = (CardView) LayoutInflater.from(parent.getContext())
@@ -183,8 +184,6 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((ViewHolderMovement) holder).buildBars();
                 break;
         }
-
-//        holder.view.setVisibility(View.VISIBLE); // TODO handling removal incorrectly.
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -206,6 +205,5 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void resetData(ArrayList<ShipActivityFragment.ActionButtons> actions) {
         mDataset = actions;
         notifyDataSetChanged();
-   //     fragment.modifyMovementTurns();
     }
 }

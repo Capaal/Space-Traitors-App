@@ -7,10 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 /**
+ * ViewPager activity holding app's main fragments.
  * Created by Jason on 11/15/2017.
  */
 
@@ -18,9 +17,7 @@ public class PagerCollectionActivity extends FragmentActivity {
 
     private ShipPagerAdapter mainPagerAdapter;
     private ViewPager viewPager;
-
     private ShipData currentShipData;
-
 
     private static final String TAG = "PagerCollectionActivity";
 
@@ -30,7 +27,7 @@ public class PagerCollectionActivity extends FragmentActivity {
         SharedPreferences savedPreferences = getSharedPreferences(ShipData.SAVED_SHIP, 0);
         SharedPreferences.Editor editor = savedPreferences.edit();
         currentShipData.saveShipToSharedPreferences(editor);
-        editor.commit();
+        editor.apply();
     }
 
     @Override
@@ -47,15 +44,12 @@ public class PagerCollectionActivity extends FragmentActivity {
         mainPagerAdapter = new ShipPagerAdapter(getSupportFragmentManager());
         mainPagerAdapter.setShipData(currentShipData);
 
-        viewPager = (ViewPager)findViewById(R.id.viewPagerLayout);
-
+        viewPager = findViewById(R.id.viewPagerLayout);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
-            }
-
-            @Override
+            @Override // TODO Should I notify (which updates some images) here?
             public void onPageSelected(int position) {
                 Fragment fragment = mainPagerAdapter.getItem(position);
                 if (fragment instanceof ShipActivityFragment) {
@@ -68,7 +62,6 @@ public class PagerCollectionActivity extends FragmentActivity {
 
             }
         });
-
         viewPager.setAdapter(mainPagerAdapter);
     }
 
@@ -76,13 +69,13 @@ public class PagerCollectionActivity extends FragmentActivity {
         Intent startingIntent = getIntent();
         if (startingIntent.hasExtra(Intent.EXTRA_TEXT)) {
             String shipType = startingIntent.getStringExtra(Intent.EXTRA_TEXT);
-            if (shipType.equals(ShipData.SAVED_SHIP)) {
-                    currentShipData = new ShipData(getSharedPreferences(ShipData.SAVED_SHIP, 0));
-                } else {
-                    currentShipData = new ShipData(shipType);
+            if (shipType.equals(ShipData.SAVED_SHIP)) { // If loading from sharedPreferences.
+                currentShipData = new ShipData(getSharedPreferences(ShipData.SAVED_SHIP, 0));
+            } else { // Else shipname chosen from ChooseShip.java is used to load default stats.
+                currentShipData = new ShipData(shipType);
             }
         } else {
-            Log.d(TAG, "defaultSetup: Default setup triggered without intent having ship data.");
+            Log.e(TAG, "defaultSetup: Default setup triggered without intent having ship data.");
         }
 //        mShipView.setLockMaxStats(sharedPreferences.getBoolean(getString(R.string.pref_lock_max_stats_key), true));
 //        mShipView.setAutoRepair(sharedPreferences.getBoolean(getString(R.string.pref_auto_repair_key), true));

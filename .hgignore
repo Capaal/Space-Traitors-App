@@ -111,3 +111,4 @@ app/src/androidTest/java/com/wordpress/a3dtwentyblog/spacetraitors/ExampleInstru
 build/android-profile/*
 .idea/*
 app/build/*
+build/*

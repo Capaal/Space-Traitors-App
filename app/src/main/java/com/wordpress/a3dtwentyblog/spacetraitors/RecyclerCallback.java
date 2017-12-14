@@ -5,6 +5,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.support.v7.widget.helper.ItemTouchHelper.Callback;
 
 /**
+ * Defines what happens when Gestures used on RecyclerView's actions.
  * Created by Jason on 12/8/2017.
  */
 
@@ -18,8 +19,8 @@ public class RecyclerCallback extends Callback {
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        int dragFlags = 0;
-        int swipeFlags =ItemTouchHelper.RIGHT | ItemTouchHelper.END; //ItemTouchHelper.START |  removed?
+        int dragFlags = 0; // Do not allow dragging.
+        int swipeFlags =ItemTouchHelper.RIGHT | ItemTouchHelper.END; // Allow swipe to right (end).
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
@@ -28,6 +29,7 @@ public class RecyclerCallback extends Callback {
         return false; // We're not implementing
     }
 
+    // On swipe, dismiss actionCard
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
@@ -48,22 +50,18 @@ public class RecyclerCallback extends Callback {
         // We only want the active item
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
             if (viewHolder instanceof ItemTouchHelperViewHolder) {
-                ItemTouchHelperViewHolder itemViewHolder =
-                        (ItemTouchHelperViewHolder) viewHolder;
+                ItemTouchHelperViewHolder itemViewHolder = (ItemTouchHelperViewHolder) viewHolder;
                 itemViewHolder.onItemSelected();
             }
         }
-
         super.onSelectedChanged(viewHolder, actionState);
     }
 
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
-
         if (viewHolder instanceof ItemTouchHelperViewHolder) {
-            ItemTouchHelperViewHolder itemViewHolder =
-                    (ItemTouchHelperViewHolder) viewHolder;
+            ItemTouchHelperViewHolder itemViewHolder = (ItemTouchHelperViewHolder) viewHolder;
             itemViewHolder.onItemClear();
         }
     }

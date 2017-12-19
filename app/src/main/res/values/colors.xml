@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#4CAF50</color>
-    <color name="primary_dark">#D9388e3c</color>
+    <color name="primary">#4caf50</color>
+    <color name="primary_dark">#d9388e3c</color>
     <color name="primary_light">#C8E6C9</color>
-    <color name="accent">#03a9f4</color>
+    <color name="accent">#C62828</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#ffffff</color>
@@ -13,5 +13,7 @@
     <color name="green">#00ff00</color>
     <color name="neon_green">#27de40</color>
     <color name="computer_black">#cc1d1717</color>
+    <color name="faded_black">#cc1d1717</color>
+    <color name="transparent">#00aaaaaa</color>
 </resources>
 

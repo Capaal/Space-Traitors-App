@@ -17,6 +17,59 @@
 
         <!-- This library requires pair of the VerticalSeekBar and VerticalSeekBarWrapper classes -->
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_action_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_below="@+id/main_include_ship_stats"
+            android:background="@drawable/defaultbox"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/main_include_ship_stats"
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/action_card" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradientmetal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <include
+                android:id="@+id/main_include_crew"
+                layout="@layout/crew_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/main_start_turn_button" />
+
+            <ImageButton
+                android:id="@+id/main_start_turn_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="2dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:contentDescription="@string/main_start_turn_description"
+                android:cropToPadding="false"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_revert"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/main_include_crew"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="60dp"
@@ -24,14 +77,12 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/speedbar"
             android:gravity="bottom"
             android:orientation="vertical"
             android:weightSum="7"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_include_ship_stats"
-            android:layout_marginLeft="8dp">
+            app:layout_constraintTop_toBottomOf="@+id/main_include_ship_stats">
 
             <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                 android:layout_width="match_parent"
@@ -56,17 +107,14 @@
             android:id="@+id/linearLayout"
             android:layout_width="60dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/speedbar"
             android:gravity="bottom"
             android:orientation="vertical"
             android:weightSum="7"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_include_ship_stats"
-            android:layout_marginLeft="8dp">
+            app:layout_constraintTop_toBottomOf="@+id/main_include_ship_stats">
 
             <TextView
                 android:id="@+id/main_current_speed"
@@ -87,11 +135,34 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/main_ship_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:background="@color/primary_text"
+            android:contentDescription="@string/main_ship_name_description"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@{ShipData.shipType}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Battleship" />
+
         <include
             android:id="@+id/main_include_ship_stats"
             layout="@layout/ship_stat_layout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/main_ship_name"
@@ -102,76 +173,6 @@
             app:layout_constraintTop_toBottomOf="@+id/main_ship_name">
 
         </include>
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#44FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@+id/main_ship_name"
-            app:layout_constraintEnd_toEndOf="@+id/main_ship_name"
-            app:layout_constraintStart_toStartOf="@+id/main_ship_name"
-            app:layout_constraintTop_toTopOf="@+id/main_ship_name" />
-
-        <TextView
-            android:id="@+id/main_ship_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="2dp"
-            android:background="@drawable/box2"
-            android:contentDescription="@string/main_ship_name_description"
-            android:gravity="center"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@{ShipData.shipType}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Battleship" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/main_action_recycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_below="@+id/main_include_ship_stats"
-            android:layout_marginStart="8dp"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/main_include_crew"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/main_include_ship_stats"
-            tools:listitem="@layout/action_card"
-            android:layout_marginLeft="8dp" />
-
-        <ImageButton
-            android:id="@+id/main_start_turn_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="2dp"
-            android:layout_marginStart="8dp"
-            android:background="@android:drawable/ic_menu_revert"
-            android:contentDescription="@string/main_start_turn_description"
-            android:padding="0dp"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/main_include_crew"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/main_action_recycler" />
-
-        <include
-            android:id="@+id/main_include_crew"
-            layout="@layout/crew_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

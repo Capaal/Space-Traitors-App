@@ -67,5 +67,6 @@
     <string name="ac_title">Attack</string>
     <string name="ac_roll_button">Roll d6:</string>
     <string name="ac_result_default">NA</string>
+    <string name="speed_locked_checkbox_text">Locked</string>
 
 </resources>

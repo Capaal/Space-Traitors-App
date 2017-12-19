@@ -21,6 +21,7 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
 
     private final String TAG = "ShipStatFragment";
 
+    private View view;
     private ShipData currentShipData;
     private TextView changeTextView; // Displays Damaged or Repaired and by how much.
 
@@ -40,7 +41,7 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
                              @Nullable Bundle savedInstanceState) {
         ShipStatEnlargedFragmentBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.ship_stat_enlarged_fragment, container, false);
-        View view = binding.getRoot();
+        view = binding.getRoot();
 
         if (currentShipData == null) {
             currentShipData = ((PagerCollectionActivity) getActivity()).getCurrentShipData();
@@ -86,8 +87,11 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
             case R.id.NavBox:
                 newValue = (currentShipData.getCurrentNavigation()) + change;
                 if (newValue >= 0 && newValue <= currentShipData.getMaxNavigation()) {
+                    TextView current = view.findViewById(R.id.navCurrent);
                     if (newValue == currentShipData.getMaxNavigation()) {
-                        //TODO set color to good color else set color to bad color
+                        current.setTextColor(getResources().getColor(R.color.computer_black));
+                    } else {
+                        current.setTextColor(getResources().getColor(R.color.red));
                     }
                     currentShipData.setCurrentNavigation(newValue);
                     currentChange++;
@@ -97,6 +101,12 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
             case R.id.WeaBox:
                 newValue = (currentShipData.getCurrentWeapons()) + change;
                 if (newValue >= 0 && newValue <= currentShipData.getMaxWeapons()) {
+                    TextView current = view.findViewById(R.id.weaCurrent);
+                    if (newValue == currentShipData.getMaxWeapons()) {
+                        current.setTextColor(getResources().getColor(R.color.computer_black));
+                    } else {
+                        current.setTextColor(getResources().getColor(R.color.red));
+                    }
                     currentShipData.setCurrentWeapons(newValue);
                     currentChange++;
                     changeTextView.setText(phrase + currentChange);
@@ -105,6 +115,12 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
             case R.id.UpgBox:
                 newValue = (currentShipData.getCurrentUpgrade()) + change;
                 if (newValue >= 0 && newValue <= currentShipData.getMaxUpgrade()) {
+                    TextView current = view.findViewById(R.id.upgCurrent);
+                    if (newValue == currentShipData.getMaxUpgrade()) {
+                        current.setTextColor(getResources().getColor(R.color.computer_black));
+                    } else {
+                        current.setTextColor(getResources().getColor(R.color.red));
+                    }
                     currentShipData.setCurrentUpgrade(newValue);
                     currentChange++;
                     changeTextView.setText(phrase + currentChange);
@@ -113,6 +129,12 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
             case R.id.CrgBox:
                 newValue = (currentShipData.getCurrentCargo()) + change;
                 if (newValue >= 0 && newValue <= currentShipData.getMaxCargo()) {
+                    TextView current = view.findViewById(R.id.crgCurrent);
+                    if (newValue == currentShipData.getMaxCargo()) {
+                        current.setTextColor(getResources().getColor(R.color.computer_black));
+                    } else {
+                        current.setTextColor(getResources().getColor(R.color.red));
+                    }
                     currentShipData.setCurrentCargo(newValue);
                     currentChange++;
                     changeTextView.setText(phrase + currentChange);
@@ -121,6 +143,12 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
             case R.id.ShldBox:
                 newValue = (currentShipData.getCurrentShields()) + change;
                 if (newValue >= 0 && newValue <= currentShipData.getMaxShields()) {
+                    TextView current = view.findViewById(R.id.shieldCurrent);
+                    if (newValue == currentShipData.getMaxShields()) {
+                        current.setTextColor(getResources().getColor(R.color.computer_black));
+                    } else {
+                        current.setTextColor(getResources().getColor(R.color.red));
+                    }
                     currentShipData.setCurrentShields(newValue);
                     currentChange++;
                     changeTextView.setText(phrase + currentChange);
@@ -129,6 +157,12 @@ public class ShipStatFragment extends android.support.v4.app.Fragment {
             case R.id.LfBox:
                 newValue = (currentShipData.getCurrentLifeSupport()) + change;
                 if (newValue >= 0 && newValue <= currentShipData.getMaxLifeSupport()) {
+                    TextView current = view.findViewById(R.id.lifeSupportCurrent);
+                    if (newValue == currentShipData.getMaxLifeSupport()) {
+                        current.setTextColor(getResources().getColor(R.color.computer_black));
+                    } else {
+                        current.setTextColor(getResources().getColor(R.color.red));
+                    }
                     currentShipData.setCurrentLifeSupport(newValue);
                     currentChange++;
                     changeTextView.setText(phrase + currentChange);

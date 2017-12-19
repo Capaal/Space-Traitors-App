@@ -4,7 +4,7 @@
     android:id="@+id/movement_card_view"
     android:layout_width="match_parent"
     android:layout_height="110dp"
-    card_view:cardBackgroundColor="@color/primary_dark"
+    card_view:cardBackgroundColor="@color/faded_black"
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="4dp"
     card_view:cardUseCompatPadding="true"
@@ -14,8 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="10dp"
+        android:background="@drawable/defaultbox"
         android:orientation="horizontal"
+        android:padding="0dp"
         android:weightSum="5">
 
         <ImageView
@@ -41,9 +42,8 @@
             android:gravity="center_vertical"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/icons"
             android:textSize="24sp"
-            android:textStyle="bold"
             tools:text="BUTTON" />
 
         <LinearLayout

@@ -14,48 +14,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/smallerspace">
 
-        <Button
-            android:id="@+id/damage_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:onClick="clickDamage"
-            android:text="@string/damage_button"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/repair_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:onClick="clickRepair"
-            android:text="@string/repair_button"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/changeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text=""
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="14sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/repair_button"
-            app:layout_constraintStart_toEndOf="@+id/damage_button"
-            tools:text="Repaired: 0" />
-
         <android.support.constraint.ConstraintLayout
             android:id="@+id/NavBox"
             android:layout_width="wrap_content"
@@ -84,19 +42,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginStart="8dp"
                 android:gravity="end"
                 android:text="@{`` + ShipData.currentNavigation}"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="24sp"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/navMax"
                 app:layout_constraintEnd_toStartOf="@+id/navMax"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/navImage"
                 app:layout_constraintTop_toTopOf="@+id/navMax"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="8" />
 
             <TextView
@@ -110,12 +68,12 @@
                 android:gravity="start"
                 android:text="@{`` + ShipData.maxNavigation}"
                 android:textAlignment="textStart"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/navImage"
                 app:layout_constraintEnd_toEndOf="@+id/navImage"
                 app:layout_constraintStart_toStartOf="@+id/navImage"
                 app:layout_constraintTop_toTopOf="@+id/navImage"
-                app:layout_constraintVertical_bias="0.57"
+                app:layout_constraintVertical_bias="0.75"
                 tools:text="8" />
 
             <TextView
@@ -125,7 +83,8 @@
                 android:gravity="start"
                 android:text="@string/navigation_short_name"
                 android:textAlignment="viewStart"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/navMax"
                 app:layout_constraintStart_toStartOf="@+id/navMax"
                 tools:text="NAV" />
@@ -163,19 +122,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginStart="8dp"
                 android:gravity="end"
                 android:text="@{`` + ShipData.currentWeapons}"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="24sp"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/weaMax"
                 app:layout_constraintEnd_toStartOf="@+id/weaMax"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/weaImage"
                 app:layout_constraintTop_toTopOf="@+id/weaMax"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="8" />
 
             <TextView
@@ -189,12 +148,12 @@
                 android:gravity="start"
                 android:text="@{`` + ShipData.maxWeapons}"
                 android:textAlignment="textStart"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/weaImage"
                 app:layout_constraintEnd_toEndOf="@+id/weaImage"
                 app:layout_constraintStart_toStartOf="@+id/weaImage"
                 app:layout_constraintTop_toTopOf="@+id/weaImage"
-                app:layout_constraintVertical_bias="0.57"
+                app:layout_constraintVertical_bias="0.75"
                 tools:text="8" />
 
             <TextView
@@ -204,7 +163,8 @@
                 android:gravity="start"
                 android:text="@string/weapons_short_name"
                 android:textAlignment="viewStart"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/weaMax"
                 app:layout_constraintStart_toStartOf="@+id/weaMax"
                 tools:text="WEA" />
@@ -219,7 +179,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
 
-            app:layout_constraintBottom_toTopOf="@+id/repair_button"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/CrgBox"
             app:layout_constraintTop_toBottomOf="@+id/NavBox">
@@ -241,19 +201,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginStart="8dp"
                 android:gravity="end"
                 android:text="@{`` + ShipData.currentUpgrade}"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="24sp"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/upgMax"
                 app:layout_constraintEnd_toStartOf="@+id/upgMax"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/upgImage"
                 app:layout_constraintTop_toTopOf="@+id/upgMax"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="8" />
 
             <TextView
@@ -267,12 +227,12 @@
                 android:gravity="start"
                 android:text="@{`` + ShipData.maxUpgrade}"
                 android:textAlignment="textStart"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/upgImage"
                 app:layout_constraintEnd_toEndOf="@+id/upgImage"
                 app:layout_constraintStart_toStartOf="@+id/upgImage"
                 app:layout_constraintTop_toTopOf="@+id/upgImage"
-                app:layout_constraintVertical_bias="0.57"
+                app:layout_constraintVertical_bias="0.75"
                 tools:text="8" />
 
             <TextView
@@ -282,7 +242,8 @@
                 android:gravity="start"
                 android:text="@string/upgrade_short_name"
                 android:textAlignment="viewStart"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/upgMax"
                 app:layout_constraintStart_toStartOf="@+id/upgMax"
                 tools:text="UPG" />
@@ -297,7 +258,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/changeTextView"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ShldBox">
@@ -306,6 +267,7 @@
                 android:id="@+id/crgImage"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/primary_dark"
                 android:scaleType="fitXY"
                 android:src="@drawable/defaultbox"
@@ -319,19 +281,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginStart="8dp"
                 android:gravity="end"
                 android:text="@{`` + ShipData.currentCargo}"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="24sp"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/crgMax"
                 app:layout_constraintEnd_toStartOf="@+id/crgMax"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/crgImage"
                 app:layout_constraintTop_toTopOf="@+id/crgMax"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="8" />
 
             <TextView
@@ -345,12 +307,12 @@
                 android:gravity="start"
                 android:text="@{`` + ShipData.maxCargo}"
                 android:textAlignment="textStart"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/crgImage"
                 app:layout_constraintEnd_toEndOf="@+id/crgImage"
                 app:layout_constraintStart_toStartOf="@+id/crgImage"
                 app:layout_constraintTop_toTopOf="@+id/crgImage"
-                app:layout_constraintVertical_bias="0.57"
+                app:layout_constraintVertical_bias="0.75"
                 tools:text="8" />
 
             <TextView
@@ -360,7 +322,8 @@
                 android:gravity="start"
                 android:text="@string/cargo_short_name"
                 android:textAlignment="viewStart"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/crgMax"
                 app:layout_constraintStart_toStartOf="@+id/crgMax"
                 tools:text="CRG" />
@@ -376,7 +339,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            app:layout_constraintBottom_toTopOf="@+id/damage_button"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toStartOf="@+id/CrgBox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/NavBox">
@@ -398,19 +361,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginStart="8dp"
                 android:gravity="end"
                 android:text="@{`` + ShipData.currentShields}"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="24sp"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/shieldMax"
                 app:layout_constraintEnd_toStartOf="@+id/shieldMax"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/shieldImage"
                 app:layout_constraintTop_toTopOf="@+id/shieldMax"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="8" />
 
             <TextView
@@ -424,12 +384,13 @@
                 android:gravity="start"
                 android:text="@{`` + ShipData.maxShields}"
                 android:textAlignment="textStart"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/shieldImage"
                 app:layout_constraintEnd_toEndOf="@+id/shieldImage"
+                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="@+id/shieldImage"
                 app:layout_constraintTop_toTopOf="@+id/shieldImage"
-                app:layout_constraintVertical_bias="0.57"
+                app:layout_constraintVertical_bias="0.75"
                 tools:text="8" />
 
             <TextView
@@ -439,7 +400,8 @@
                 android:gravity="start"
                 android:text="@string/shields_short_name"
                 android:textAlignment="viewStart"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/shieldMax"
                 app:layout_constraintStart_toStartOf="@+id/shieldMax"
                 tools:text="SHD" />
@@ -476,19 +438,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginStart="8dp"
                 android:gravity="end"
                 android:text="@={`` + ShipData.currentLifeSupport}"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="24sp"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/lifeSupportMax"
                 app:layout_constraintEnd_toStartOf="@+id/lifeSupportMax"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/lifeSupportImage"
                 app:layout_constraintTop_toTopOf="@+id/lifeSupportMax"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="8" />
 
             <TextView
@@ -502,12 +461,12 @@
                 android:gravity="end"
                 android:text="@={`` + ShipData.maxLifeSupport}"
                 android:textAlignment="textEnd"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/lifeSupportImage"
                 app:layout_constraintEnd_toEndOf="@+id/lifeSupportImage"
                 app:layout_constraintStart_toStartOf="@+id/lifeSupportImage"
                 app:layout_constraintTop_toTopOf="@+id/lifeSupportImage"
-                app:layout_constraintVertical_bias="0.57"
+                app:layout_constraintVertical_bias="0.75"
                 tools:text="8" />
 
             <TextView
@@ -517,7 +476,8 @@
                 android:gravity="start"
                 android:text="@string/life_support_short_name"
                 android:textAlignment="viewStart"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/lifeSupportMax"
                 app:layout_constraintStart_toStartOf="@+id/lifeSupportMax"
                 tools:text="LF" />
@@ -539,5 +499,55 @@
             app:layout_constraintStart_toStartOf="@+id/LfBox"
             app:layout_constraintTop_toTopOf="@+id/NavBox"
             app:srcCompat="@drawable/hex" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradientmetal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/damage_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:onClick="clickDamage"
+                android:text="@string/damage_button"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/repair_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="clickRepair"
+                android:text="@string/repair_button"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/changeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="24sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/repair_button"
+                app:layout_constraintStart_toEndOf="@+id/damage_button"
+                tools:text="Repaired: 0" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

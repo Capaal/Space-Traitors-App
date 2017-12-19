@@ -56,12 +56,13 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY);
+
+        //    itemView.setBackgroundColor(Color.LTGRAY);
         }
 
         @Override
         public void onItemClear() {
-            itemView.setBackgroundColor(ResourcesCompat.getColor(fragment.getResources(), R.color.primary_dark, null));
+          //  itemView.setBackgroundColor(ResourcesCompat.getColor(fragment.getResources(), R.color.primary_dark, null));
         }
     }
     // View Holder for Movement Cards (Move and Turn) Case 1 & 2.
@@ -122,12 +123,13 @@ public class ActionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY);
+
+            //itemView.setBackgroundColor(Color.LTGRAY);
         }
 
         @Override
         public void onItemClear() {
-            itemView.setBackgroundColor(ResourcesCompat.getColor(fragment.getResources(), R.color.primary_dark, null));
+           // itemView.setBackgroundColor(ResourcesCompat.getColor(fragment.getResources(), R.color.primary_dark, null));
         }
     }
 

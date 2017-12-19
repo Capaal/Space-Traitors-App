@@ -10,8 +10,8 @@
         <item name="android:textColorPrimary">@color/primary_text</item>
         <item name="android:textColorSecondary">@color/secondary_text</item>
         <!--<item name="android:windowBackground">@color/primary_light</item>-->
-        <item name="cardBackgroundColor">@color/primary_dark</item>
-        <item name="colorBackgroundFloating">@color/primary</item>
+        <item name="cardBackgroundColor">@color/faded_black</item>
+        <item name="colorBackgroundFloating">@color/faded_black</item>
 
     </style>
 
